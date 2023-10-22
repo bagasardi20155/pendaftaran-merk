@@ -27,7 +27,7 @@ class RolePermissionSeeder extends Seeder
 
         DB::beginTransaction();
         try {
-            $pemohon = User::create(array_merge([
+            $applicant = User::create(array_merge([
                 'name' => 'Bagas Ardiansyah',
                 'email' => 'bagasardi123@gmail.com',
             ], $default_user_value));
@@ -37,7 +37,7 @@ class RolePermissionSeeder extends Seeder
                 'email' => 'admin@pendaftaranmerk.com',
             ], $default_user_value));
     
-            $role = Role::create(['name' => 'pemohon']);
+            $role = Role::create(['name' => 'applicant']);
             $role = Role::create(['name' => 'admin']);
     
             $permission = Permission::create(['name' => 'create role']);
@@ -45,7 +45,7 @@ class RolePermissionSeeder extends Seeder
             $permission = Permission::create(['name' => 'update role']);
             $permission = Permission::create(['name' => 'delete role']);
     
-            $pemohon->assignRole('pemohon');
+            $applicant->assignRole('applicant');
             $admin->assignRole('admin');
             
             DB::commit();
