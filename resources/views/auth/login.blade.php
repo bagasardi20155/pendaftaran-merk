@@ -1,10 +1,6 @@
 @extends('layouts/master')
 @section('title', 'Login')
 
-@section('css')
-    <link rel="stylesheet" href="../node_modules/bootstrap-social/bootstrap-social.css">
-@endsection
-
 @section('content')
     <section class="section">
       <div class="container mt-5">
@@ -22,7 +18,7 @@
                   @csrf
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email" tabindex="1" :value="old('email')" required autofocus autocomplete="username">
+                    <input id="email" type="email" class="form-control" name="email" tabindex="1" value="{{ old('email') }}" required autofocus autocomplete="username">
                     <div class="invalid-feedback">
                         Email is invalid
                     </div>

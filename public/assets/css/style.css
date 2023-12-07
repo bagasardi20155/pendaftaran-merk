@@ -3461,6 +3461,7 @@ body.layout-3 .main-footer {
 }
 
 .main-content {
+  padding-bottom: 30px;
   width: 100%;
   position: relative;
 }
