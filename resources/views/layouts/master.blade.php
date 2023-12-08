@@ -20,6 +20,14 @@
 <body>
   <div id="app">
     <div class="main-wrapper">
+      @if (auth()->check())
+        <div class="navbar-bg"></div>
+        
+        @include('layouts.partials.navbar')
+
+        @include('layouts.partials.sidebar')
+      @endif
+      
       <!-- Main Content -->
       <div class="main-content">
         @yield('content')
