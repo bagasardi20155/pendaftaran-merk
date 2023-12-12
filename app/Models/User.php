@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Applicant\Brand;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,4 +44,17 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+        return false;
+    }
+    
+    public function brand()
+    {
+        return $this->hasMany(Brand::class);
+    }
 }

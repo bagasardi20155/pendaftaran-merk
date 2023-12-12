@@ -9,16 +9,33 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            
+
             {{-- administrator menus --}}
-            <li class="nav-item dropdown">
-            <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-            <ul class="dropdown-menu">
-                <li><a class="nav-link" href="#">General Dashboard</a></li>
-                <li><a class="nav-link" href="#">Ecommerce Dashboard</a></li>
-            </ul>
-            </li>
-            <li><a class="nav-link" href="#"><i class="far fa-square"></i> <span>Blank Page</span></a></li>
+            @if (auth()->user()->hasRole('admin'))   
+                <li class="{{ $active == 'dashboard' ? 'active' : '' }}"><a class="nav-link" href="#"><i class="far fa-chart-bar"></i> <span>Dashboard</span></a></li>
+                <li class="nav-item dropdown {{ in_array($active, ['daftar-permohonan', 'merk-terdaftar', 'kelola-pengumuman']) ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder-open"></i><span>Permohonan</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ $active == 'daftar-permohonan' ? 'active' : '' }}"><a class="nav-link" href="#">Daftar Permohonan</a></li>
+                        <li class="{{ $active == 'merk-terdaftar' ? 'active' : '' }}"><a class="nav-link" href="#">Merk Terdaftar</a></li>
+                        <li class="{{ $active == 'kelola-pengumuman' ? 'active' : '' }}"><a class="nav-link" href="#">Kelola Pengumuman</a></li>
+                    </ul>
+                </li>
+                <li class="{{ $active == 'daftar-pengguna' ? 'active' : '' }}"><a class="nav-link" href="#"><i class="far fa-list-alt"></i> <span>Daftar Pengguna</span></a></li>
+            @endif
+            {{-- ------- --}}
+
+            {{-- applicant menus --}}
+            @if (auth()->user()->hasRole('applicant'))   
+                <li class="{{ $active == 'dashboard' ? 'active' : '' }}"><a class="nav-link" href="#"><i class="far fa-chart-bar"></i> <span>Dashboard</span></a></li>
+                <li class="nav-item dropdown {{ in_array($active, ['daftar-ajuan-merk', 'pengajuan-baru']) ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-flag"></i><span>Pengajuan Merk</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ $active == 'daftar-ajuan-merk' ? 'active' : '' }}"><a class="nav-link" href="{{ route('applicant.ajuan-merk.index') }}">Daftar Ajuan Merk</a></li>
+                        <li class="{{ $active == 'pengajuan-baru' ? 'active' : '' }}"><a class="nav-link" href="#">Pengajuan Baru</a></li>
+                    </ul>
+                </li>
+            @endif
             {{-- ------- --}}
         </ul>    
         </aside>
