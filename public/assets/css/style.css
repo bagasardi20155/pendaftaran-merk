@@ -288,6 +288,11 @@ select.form-control:not([size]):not([multiple]) {
   padding-left: 15px;
 }
 
+.control-label::after { 
+  content:" *";
+  color:red;
+}
+
 .input-group-append [class*=btn-outline-] {
   background-color: #fdfdff;
 }

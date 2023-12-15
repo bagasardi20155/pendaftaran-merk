@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Applicant\AjuanMerkController;
+use App\Http\Controllers\Applicant\PengajuanBaruController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +47,7 @@ Route::name('applicant.')
     ->prefix('applicant')
     ->group(function () {
         Route::get('ajuan-merk', [AjuanMerkController::class, 'index'])->name('ajuan-merk.index');
+        Route::resource('pengajuan-baru', PengajuanBaruController::class);
 });
 // {{-- ------- --}}
 

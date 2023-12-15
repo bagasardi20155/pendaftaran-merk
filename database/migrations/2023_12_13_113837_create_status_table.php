@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_verified')->default(0)->nullable()->after('email');
+        Schema::create('status', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('message')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,10 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        if (Schema::hasColumn('users', 'is_verified')) {
-            Schema::table('users', function (Blueprint $table) {
-                $table->dropColumn('is_verified');
-            });
-        }
+        Schema::dropIfExists('status');
     }
 };

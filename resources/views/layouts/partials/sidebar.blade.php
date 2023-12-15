@@ -32,7 +32,7 @@
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-flag"></i><span>Pengajuan Merk</span></a>
                     <ul class="dropdown-menu">
                         <li class="{{ $active == 'daftar-ajuan-merk' ? 'active' : '' }}"><a class="nav-link" href="{{ route('applicant.ajuan-merk.index') }}">Daftar Ajuan Merk</a></li>
-                        <li class="{{ $active == 'pengajuan-baru' ? 'active' : '' }}"><a class="nav-link" href="#">Pengajuan Baru</a></li>
+                        <li class="{{ $active == 'pengajuan-baru' ? 'active' : '' }}"><a class="nav-link" href="{{ route('applicant.pengajuan-baru.create') }}">Pengajuan Baru</a></li>
                     </ul>
                 </li>
             @endif
