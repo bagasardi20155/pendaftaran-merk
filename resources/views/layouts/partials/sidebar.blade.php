@@ -21,7 +21,7 @@
                         <li class="{{ $active == 'kelola-pengumuman' ? 'active' : '' }}"><a class="nav-link" href="#">Kelola Pengumuman</a></li>
                     </ul>
                 </li>
-                <li class="{{ $active == 'daftar-pengguna' ? 'active' : '' }}"><a class="nav-link" href="#"><i class="far fa-list-alt"></i> <span>Daftar Pengguna</span></a></li>
+                <li class="{{ $active == 'daftar-pengguna' ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.daftar-pengguna.index') }}"><i class="far fa-list-alt"></i> <span>Daftar Pengguna</span></a></li>
             @endif
             {{-- ------- --}}
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Administrator\DashboardController;
 use App\Http\Controllers\Applicant\AjuanMerkController;
 use App\Http\Controllers\Applicant\PengajuanBaruController;
 use App\Http\Controllers\ProfileController;
@@ -33,11 +34,12 @@ Route::middleware('auth')->group(function () {
 
 // {{ administrator routes }}
 
-// Route::name('admin')
-//     ->prefix('admin')
-//     ->group(['middleware' => 'role:admin'], function () {
-//         Route::get('permohonan', [AjuanMerkController::class, 'index'])->name('permohonan.index');
-// });
+Route::name('admin.')
+    ->middleware(['role:admin'])
+    ->prefix('admin')
+    ->group(function () {
+        Route::get('daftar-pengguna', [DashboardController::class, 'daftar_pengguna'])->name('daftar-pengguna.index');
+});
 
 // {{-- ------- --}}
 
