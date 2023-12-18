@@ -20,4 +20,9 @@ class Brand extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'id_status');
+    }
 }

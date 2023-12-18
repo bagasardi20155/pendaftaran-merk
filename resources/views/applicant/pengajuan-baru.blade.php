@@ -17,8 +17,11 @@
                 <div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-3 col-lg-8 offset-lg-3 col-xl-4 offset-xl-4">
                 <div class="card">
                     <div class="card-body">
-                        <div class="alert alert-warning">
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
                             <b>Perhatian!</b> Isikan dengan benar. Anda hanya bisa merubah data setelah verifikasi administrator.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
 
                         <form action="{{ route('applicant.pengajuan-baru.store') }}" method="POST" enctype="multipart/form-data">

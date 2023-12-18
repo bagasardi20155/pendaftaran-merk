@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Applicant\PengajuanBaruRequest;
 use App\Models\Applicant\Brand;
 use App\Services\Applicant\FileUploadService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PengajuanBaruController extends Controller
 {
@@ -31,11 +34,9 @@ class PengajuanBaruController extends Controller
     /**
      * Store the pengajuan merk form.
      */
-    public function store(PengajuanBaruRequest $request): View
+    public function store(PengajuanBaruRequest $request): RedirectResponse
     {
-        $active = 'daftar-ajuan-merk';
         $validateData = $request->validated();
-        // dd($active, $request->validated());
         try {
 			if($request->hasFile('logo')) {
 				$validateData['logo'] = FileUploadService::uploadFile($request->file('logo'), 'images/brand-logo/');
@@ -48,7 +49,10 @@ class PengajuanBaruController extends Controller
 			}
             $pengajuan_baru = Brand::create($validateData);
             
-            return view('applicant.ajuan-merk', compact('active'));
+            $msg = "Merk Anda Berhasil Diajukan";
+            $tooltip = "Status Ajuan Anda : Menunggu Verifikasi Admin";
+            Alert::success($msg, $tooltip);
+            return Redirect::route('applicant.ajuan-merk.index');
         } catch (\Throwable $th) {
             return $this->handleError($th->getMessage(), []);
         }

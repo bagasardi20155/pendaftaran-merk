@@ -13,4 +13,9 @@ class Status extends Model
     protected $table = 'status';
     protected $primary_key = 'id';
     protected $fillable = ['name', 'message'];
+
+    public function brand()
+    {
+        return $this->hasMany(Brand::class, "id_status");
+    }
 }
