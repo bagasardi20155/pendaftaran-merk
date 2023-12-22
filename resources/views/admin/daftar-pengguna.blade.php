@@ -8,6 +8,7 @@
 @endpush
 
 @section('content')
+<div class="main-content">
     <section class="section">
         <div class="section-header">
             <h1>Daftar Ajuan Merk</h1>
@@ -68,6 +69,7 @@
             </div>
         </div>
     </section>
+</div>
 @endsection
 
 @push('js')

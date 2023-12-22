@@ -1,11 +1,11 @@
 @if (auth()->user()->email_verified_at)
-    <div class="main-sidebar sidebar-style-2">
+    <div class="main-sidebar">
         <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ route('dashboard') }}"><img src="{{ asset('images/logo_ki2.png') }}" alt="Pendaftaran Merk" width="50px"></a>
+            <a href="{{ route('dashboard') }}"><img src="{{ asset('homepage/images/logo_ki2.png') }}" alt="Pendaftaran Merk" width="50px"></a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ route('dashboard') }}"><img src="{{ asset('images/logo_ki2.png') }}" alt="Pendaftaran Merk" width="30px"></a>
+            <a href="{{ route('dashboard') }}"><img src="{{ asset('homepage/images/logo_ki2.png') }}" alt="Pendaftaran Merk" width="30px"></a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>

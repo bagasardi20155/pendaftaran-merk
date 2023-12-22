@@ -16,12 +16,12 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="/fonts/icomoon/style.css" />
-    <link rel="stylesheet" href="/fonts/flaticon/font/flaticon.css" />
+    <link rel="stylesheet" href="homepage/fonts/icomoon/style.css" />
+    <link rel="stylesheet" href="homepage/fonts/flaticon/font/flaticon.css" />
 
-    <link rel="stylesheet" href="/css/tiny-slider.css" />
-    <link rel="stylesheet" href="/css/aos.css" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="homepage/css/tiny-slider.css" />
+    <link rel="stylesheet" href="homepage/css/aos.css" />
+    <link rel="stylesheet" href="homepage/css/style.css" />
 
     <title>
       Sistem Pendaftaran Merk
@@ -42,7 +42,7 @@
         <div class="menu-bg-wrap">
           <div class="site-navigation">
             <a href="index.html" class="logo m-0 float-start">
-              <img src="/images/logo_ki2.png" alt="Logo KI UNS" style="max-width: 100px">
+              <img src="homepage/images/logo_ki2.png" alt="Logo KI UNS" style="max-width: 100px">
             </a>
 
             <ul
@@ -102,15 +102,15 @@
       <div class="hero-slide">
         <div
           class="img overlay"
-          style="background-image: url('images/hero_bg_3.jpg')"
+          style="background-image: url('homepage/images/hero_bg_3.jpg')"
         ></div>
         <div
           class="img overlay"
-          style="background-image: url('images/hero_bg_2.jpg')"
+          style="background-image: url('homepage/images/hero_bg_2.jpg')"
         ></div>
         <div
           class="img overlay"
-          style="background-image: url('images/hero_bg_1.jpg')"
+          style="background-image: url('homepage/images/hero_bg_1.jpg')"
         ></div>
       </div>
 
@@ -163,7 +163,7 @@
               <div class="property-slider">
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_1.jpg" alt="Image" class="img-fluid" />
+                    <img src="homepage/homepage/images/img_1.jpg" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -197,7 +197,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_2.jpg" alt="Image" class="img-fluid" />
+                    <img src="homepage/images/img_2.jpg" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -231,7 +231,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_3.jpg" alt="Image" class="img-fluid" />
+                    <img src="homepage/images/img_3.jpg" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -265,7 +265,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_4.jpg" alt="Image" class="img-fluid" />
+                    <img src="homepage/images/img_4.jpg" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -299,7 +299,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_5.jpg" alt="Image" class="img-fluid" />
+                    <img src="homepage/images/img_5.jpg" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -333,7 +333,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_6.jpg" alt="Image" class="img-fluid" />
+                    <img src="homepage/images/img_6.jpg" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -367,7 +367,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_7.jpg" alt="Image" class="img-fluid" />
+                    <img src="homepage/images/img_7.jpg" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -401,7 +401,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_8.jpg" alt="Image" class="img-fluid" />
+                    <img src="homepage/images/img_8.jpg" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -435,7 +435,7 @@
 
                 <div class="property-item">
                   <a href="property-single.html" class="img">
-                    <img src="images/img_1.jpg" alt="Image" class="img-fluid" />
+                    <img src="homepage/images/img_1.jpg" alt="Image" class="img-fluid" />
                   </a>
 
                   <div class="property-content">
@@ -696,7 +696,7 @@
         <div class="row justify-content-between mb-5">
           <div class="col-lg-7 mb-5 mb-lg-0 order-lg-2">
             <div class="img-about dots">
-              <img src="images/hero_bg_3.jpg" alt="Image" class="img-fluid" />
+              <img src="homepage/images/hero_bg_3.jpg" alt="Image" class="img-fluid" />
             </div>
           </div>
           <div class="col-lg-4">
@@ -1046,11 +1046,11 @@
       </div>
     </div>
 
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/tiny-slider.js"></script>
-    <script src="/js/aos.js"></script>
-    <script src="/js/navbar.js"></script>
-    <script src="/js/counter.js"></script>
-    <script src="/js/custom.js"></script>
+    <script src="homepage/js/bootstrap.bundle.min.js"></script>
+    <script src="homepage/js/tiny-slider.js"></script>
+    <script src="homepage/js/aos.js"></script>
+    <script src="homepage/js/navbar.js"></script>
+    <script src="homepage/js/counter.js"></script>
+    <script src="homepage/js/custom.js"></script>
   </body>
 </html>

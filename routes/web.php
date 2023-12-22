@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Administrator\DashboardController;
+use App\Http\Controllers\Administrator\PermohonanController;
 use App\Http\Controllers\Applicant\AjuanMerkController;
 use App\Http\Controllers\Applicant\PengajuanBaruController;
 use App\Http\Controllers\ProfileController;
@@ -39,6 +40,7 @@ Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
         Route::get('daftar-pengguna', [DashboardController::class, 'daftar_pengguna'])->name('daftar-pengguna.index');
+        Route::get('daftar-permohonan', [PermohonanController::class, 'index'])->name('daftar-permohonan.index');
 });
 
 // {{-- ------- --}}
