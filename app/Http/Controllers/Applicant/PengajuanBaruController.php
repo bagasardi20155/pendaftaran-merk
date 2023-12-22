@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Applicant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Applicant\PengajuanBaruRequest;
 use App\Models\Applicant\Brand;
+use App\Models\Applicant\BrandStatus;
 use App\Services\Applicant\FileUploadService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,16 +40,22 @@ class PengajuanBaruController extends Controller
         $validateData = $request->validated();
         try {
 			if($request->hasFile('logo')) {
-				$validateData['logo'] = FileUploadService::uploadFile($request->file('logo'), 'images/brand-logo/');
+				$validateData['logo'] = FileUploadService::uploadFile($request->file('logo'), 'homepage/images/brand-logo/');
 			}
             if($request->hasFile('suket_umk')) {
-				$validateData['suket_umk'] = FileUploadService::uploadFile($request->file('suket_umk'), 'images/brand-suket-umk/');
+				$validateData['suket_umk'] = FileUploadService::uploadFile($request->file('suket_umk'), 'homepage/images/brand-suket-umk/');
 			}
             if($request->hasFile('applicant_signature')) {
-				$validateData['applicant_signature'] = FileUploadService::uploadFile($request->file('applicant_signature'), 'images/brand-signature/');
+				$validateData['applicant_signature'] = FileUploadService::uploadFile($request->file('applicant_signature'), 'homepage/images/brand-signature/');
 			}
             $pengajuan_baru = Brand::create($validateData);
             
+            if ($pengajuan_baru) {
+                BrandStatus::create([
+                    "id_brand" => $pengajuan_baru->id,
+                    "status" => "waiting",
+                ]);
+            }
             $msg = "Merk Anda Berhasil Diajukan";
             $tooltip = "Status Ajuan Anda : Menunggu Verifikasi Admin";
             Alert::success($msg, $tooltip);

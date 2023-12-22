@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('brand_status', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('message')->nullable();
+            $table->bigInteger('id_brand')->unsigned();
+            $table->enum('status', ['waiting', 'revision', 'revised', 'rejected', 'accepted']);
             $table->timestamps();
+
+            $table->foreign('id_brand')->references('id')->on('brands')->onDelete('cascade');
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status');
+        Schema::dropIfExists('brand_status');
     }
 };

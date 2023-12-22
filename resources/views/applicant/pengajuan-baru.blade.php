@@ -3,9 +3,10 @@
 @section('title', 'Pengajuan Merk Baru')
 
 @section('content')
+<div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Form</h1>
+            <h1>Form Pengajuan Merk</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
                 <div class="breadcrumb-item">Form Pengajuan Merk</div>
@@ -105,4 +106,5 @@
             </div>
         </div>
     </section>
+</div>
 @endsection

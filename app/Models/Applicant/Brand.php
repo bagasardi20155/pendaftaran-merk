@@ -21,8 +21,8 @@ class Brand extends Model
         return $this->belongsTo(User::class, 'id_user');
     }
 
-    public function status()
+    public function brand_status()
     {
-        return $this->belongsTo(Status::class, 'id_status');
+        return $this->hasMany(BrandStatus::class, 'id_brand', 'id')->orderBy('updated_at', 'desc');
     }
 }

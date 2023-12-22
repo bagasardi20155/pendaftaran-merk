@@ -8,6 +8,8 @@
 @endpush
 
 @section('content')
+<div class="main-content">
+
     <section class="section">
         <div class="section-header">
             <h1>Daftar Ajuan Merk</h1>
@@ -43,14 +45,14 @@
                                     <td>{{ $brand->address }}</td>
                                     <td>{{ $brand->owner }}</td>
                                     <td>
-                                        @if ( $brand->id_status == 1)
-                                            <span class="badge badge-pill badge-dark">{{ $brand->status->name }}</span>
-                                        @elseif ( $brand->id_status == 2)
-                                            <span class="badge badge-pill badge-success">{{ $brand->status->name }}</span>
-                                        @elseif ( $brand->id_status == 3)
-                                            <span class="badge badge-pill badge-warning">{{ $brand->status->name }}</span>
-                                        @elseif ( $brand->id_status == 4)
-                                            <span class="badge badge-pill badge-danger">{{ $brand->status->name }}</span>
+                                        @if ( $brand->brand_status[0]->status == 'waiting')
+                                            <span class="badge badge-pill badge-dark">{{ $brand->brand_status[0]->status }}</span>
+                                        @elseif ( $brand->brand_status[0]->status == 'accepted')
+                                            <span class="badge badge-pill badge-success">{{ $brand->brand_status[0]->status }}</span>
+                                        @elseif ( $brand->brand_status[0]->status == 'revision')
+                                            <span class="badge badge-pill badge-warning">{{ $brand->brand_status[0]->status }}</span>
+                                        @elseif ( $brand->brand_status[0]->status == 'rejected')
+                                            <span class="badge badge-pill badge-danger">{{ $brand->brand_status[0]->status }}</span>
                                         @endif
                                     </td>
                                     <td><a href="#" class="btn btn-primary" title="Detail Ajuan"><i class="far fa-eye"></i></a></td>
@@ -68,6 +70,7 @@
             </div>
         </div>
     </section>
+</div>
 @endsection
 
 @push('js')

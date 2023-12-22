@@ -16,7 +16,7 @@
                 <li class="nav-item dropdown {{ in_array($active, ['daftar-permohonan', 'merk-terdaftar', 'kelola-pengumuman']) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder-open"></i><span>Permohonan</span></a>
                     <ul class="dropdown-menu">
-                        <li class="{{ $active == 'daftar-permohonan' ? 'active' : '' }}"><a class="nav-link" href="#">Daftar Permohonan</a></li>
+                        <li class="{{ $active == 'daftar-permohonan' ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.daftar-permohonan.index') }}">Daftar Permohonan</a></li>
                         <li class="{{ $active == 'merk-terdaftar' ? 'active' : '' }}"><a class="nav-link" href="#">Merk Terdaftar</a></li>
                         <li class="{{ $active == 'kelola-pengumuman' ? 'active' : '' }}"><a class="nav-link" href="#">Kelola Pengumuman</a></li>
                     </ul>
