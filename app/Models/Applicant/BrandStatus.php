@@ -14,7 +14,7 @@ class BrandStatus extends Model
 
     protected $table = "brand_status";
     protected $primary_key = "id";
-    protected $fillable = ['id_brand', 'status'];
+    protected $fillable = ['id_brand', 'status', 'message'];
 
     public function brand()
     {

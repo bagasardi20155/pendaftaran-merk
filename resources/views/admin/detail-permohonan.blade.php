@@ -249,7 +249,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5 class="text-center" style="color: black">Penilaian Hasil Verifikasi</h5>
-                                        <button class="btn btn-danger col-lg-12">Verifikasi Ajuan</button>
+                                        <button class="btn btn-danger col-lg-12" id="btn-modal-verifikasi" data-toggle="modal" data-target="#modal-verifikasi">Verifikasi Ajuan</button>
                                     </div>
                                 </div>
                             </div>
@@ -258,7 +258,62 @@
                 </div>
             @endif
         </div>
+
     </section>
+    {{-- modal verifikasi --}}
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-verifikasi">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Verifikasi Ajuan Merk</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.daftar-permohonan.detail.store', ['brand' => $data->id]) }}" method="POST">
+                        @csrf
+                        @method('post')
+                        <div class="row mb-2">
+                            <div class="col">
+                                <span>Status Verifikasi <span class="text-danger">*</span></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-evenly">
+                                    <label class="selectgroup-item mx-3">
+                                        <input type="radio" name="status" value="accepted" class="selectgroup-input">
+                                        <span class="selectgroup-button selectgroup-button-icon btn btn-outline-success rounded align-items-center d-flex">Terima Ajuan Merk</span>
+                                    </label>
+                                    <label class="selectgroup-item mx-3">
+                                        <input type="radio" name="status" value="rejected" class="selectgroup-input" required>
+                                        <span class="selectgroup-button selectgroup-button-icon btn btn-outline-danger rounded align-items-center d-flex">Tolak Ajuan Merk</i></span>
+                                    </label>
+                                    <label class="selectgroup-item mx-3">
+                                        <input type="radio" name="status" value="revision" class="selectgroup-input">
+                                        <span class="selectgroup-button selectgroup-button-icon btn btn-outline-warning rounded align-items-center d-flex">Ajuan Perlu Revisi</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <div>
+                                    <label for="message">Pesan <span class="text-danger">*</span></label>
+                                    <textarea name="message" id="message" class="form-control" cols="30" rows="4" placeholder="Silahkan berikan pesan untuk proses verifikasi ini" required style="height: 100%"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row modal-footer br mt-3">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="submit-confirm">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -274,6 +329,27 @@
             "columnDefs": [
                 { "sortable": true, "targets": [0] }
             ]
+        });
+
+        // submit confirmation alert
+        $('#submit-confirm').click(function(event) {
+            var form =  $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            Swal.fire({
+                title: `Apakah Anda Yakin?`,
+                text: "Anda tidak bisa merubah status ajuan kembali",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Submit",
+                cancelButtonText: "Cancel",
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                form.submit();
+                }
+            });
         });
     </script>
 @endpush

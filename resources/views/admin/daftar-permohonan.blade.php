@@ -32,6 +32,7 @@
                             <th>Address</th>
                             <th>Owner</th>
                             <th>Status</th>
+                            <th>Latest Msg</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
@@ -54,6 +55,7 @@
                                             <span class="badge badge-pill badge-danger" title="Merk Anda Ditolak Admin">{{ $brand->brand_status[0]->status }}</span>
                                         @endif
                                     </td>
+                                    <td>{{ $brand->brand_status[0]->message }}</td>
                                     <td>
                                         <a href="{{ route('admin.daftar-permohonan.detail', ['brand' => $brand->id]) }}" class="btn btn-warning" title="Detail & Verifikasi"><i class="fas fa-pencil-alt"></i></a>
                                     </td>
