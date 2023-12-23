@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Daftar Pengguna')
+@section('title', 'Daftar Ajuan Merk')
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
@@ -11,10 +11,10 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Daftar Pengguna</h1>
+            <h1>Daftar Ajuan Merk</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item">Daftar Pengguna</div>
+                <div class="breadcrumb-item">Daftar Ajuan Merk</div>
             </div>
         </div>
 
@@ -28,32 +28,34 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th>Brand</th>
+                            <th>Address</th>
+                            <th>Owner</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
                         @if (count($data) > 0 || $data != null)
-                            @foreach ($data as $user)
+                            @foreach ($data as $brand)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $brand->name }}</td>
+                                    <td>{{ $brand->address }}</td>
+                                    <td>{{ $brand->owner }}</td>
                                     <td>
-                                        @if ( $user->hasRole('admin'))
-                                            <span class="badge badge-pill badge-danger">
-                                                Admin
-                                            </span>
-                                        @elseif ( $user->hasRole('applicant'))
-                                            <span class="badge badge-pill badge-warning">
-                                                Pemohon
-                                            </span>
+                                        @if ( $brand->brand_status[0]->status == 'waiting')
+                                            <span class="badge badge-pill badge-dark" title="Menunggu Verifikasi Admin">{{ $brand->brand_status[0]->status }}</span>
+                                        @elseif ( $brand->brand_status[0]->status == 'accepted')
+                                            <span class="badge badge-pill badge-success" title="Merk Anda Diterima Admin">{{ $brand->brand_status[0]->status }}</span>
+                                        @elseif ( $brand->brand_status[0]->status == 'revision' || $brand->brand_status[0]->status == 'revised' )
+                                            <span class="badge badge-pill badge-warning" title="Ajuan Merk perlu Direvisi">{{ $brand->brand_status[0]->status }}</span>
+                                        @elseif ( $brand->brand_status[0]->status == 'rejected')
+                                            <span class="badge badge-pill badge-danger" title="Merk Anda Ditolak Admin">{{ $brand->brand_status[0]->status }}</span>
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-dark" title="Grant User Role"><i class="far fa-handshake"></i></a>
+                                        <a href="{{ route('admin.daftar-permohonan.detail', ['brand' => $brand->id]) }}" class="btn btn-warning" title="Detail & Verifikasi"><i class="fas fa-pencil-alt"></i></a>
                                     </td>
                                 </tr>
                             @endforeach    

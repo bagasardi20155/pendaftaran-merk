@@ -15,7 +15,7 @@
 
         <div class="section-body">
             <div class="row">
-                <div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-3 col-lg-8 offset-lg-3 col-xl-4 offset-xl-4">
+                <div class="col-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -63,7 +63,7 @@
 
                             <label class="control-label" for="logo" style="font-weight: 600; font-size: 12px; color: #34395e">Logo Merk / Usaha</label>
                             <div class="form-group custom-file">
-                                <input type="file" class="custom-file-input" name="logo" id="logo" required value="{{ old('logo') }}">
+                                <input type="file" class="custom-file-input" name="logo" id="logo" required value="{{ old('logo') }}" accept=".jpg, .png" onchange="imagePreview('logo', 'imageLogo')">
                                 <label class="custom-file-label" for="logo">Choose file</label>
                                 <small class="form-text text-muted">File: .jpg / .png | Maks. 1 MB</small>
                             </div>
@@ -75,7 +75,7 @@
 
                             <label for="suket_umk" style="font-weight: 600; font-size: 12px; color: #34395e">Surat Keterangan UMK</label>
                             <div class="form-group custom-file">
-                                <input type="file" class="custom-file-input" name="suket_umk" id="suket_umk" value="{{ old('suket_umk') }}">
+                                <input type="file" class="custom-file-input form-control" name="suket_umk" id="suket_umk" value="{{ old('suket_umk') }}" accept=".pdf, .png">
                                 <label class="custom-file-label" for="suket_umk">Choose file</label>
                                 <small class="form-text text-muted">File: .jpg / .pdf | Maks. 2 MB</small>
                             </div>
@@ -87,7 +87,7 @@
 
                             <label class="control-label" for="applicant_signature" style="font-weight: 600; font-size: 12px; color: #34395e">Tanda Tangan Pemohon</label>
                             <div class="form-group custom-file">
-                                <input type="file" class="custom-file-input" name="applicant_signature" id="applicant_signature" required value="{{ old('applicant_signature') }}">
+                                <input type="file" class="custom-file-input" name="applicant_signature" id="applicant_signature" required value="{{ old('applicant_signature') }}" accept=".jpg, .png" onchange="imagePreview('applicant_signature', 'imageSignature')">
                                 <label class="custom-file-label" for="applicant_signature">Choose file</label>
                                 <small class="form-text text-muted">File: .jpg / .png | Maks. 1 MB</small>
                             </div>
@@ -97,14 +97,47 @@
                                 </div>
                             @enderror
 
-                            
                             <button class="btn btn-primary mr-1 float-right" type="submit">Daftarkan Merk</button>
                         </form>
                     </div>
                 </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Logo Merk</h5>
+                            <img class="img-fluid" id="imageLogo" alt="" width="50%">
+                        </div>
+                        <div class="card-body py-4">
+                            <h5>Tanda Tangan Pemohon</h5>
+                            <img class="img-fluid" id="imageSignature" alt="" width="50%">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
 @endsection
+
+@push('js')
+    <script>
+        function imagePreview(input_id, img_preview_id) {
+            const image = document.querySelector('#'+input_id);
+            const imgPreview = document.querySelector('#'+img_preview_id);
+
+            imgPreview.style.display = 'block';
+            imgPreview.style.maxHeight = '300px';
+            imgPreview.classList.add('border');
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imgPreview.src = oFREvent.target.result;
+                document.querySelector('#photoProfileButton').classList.remove('d-none');
+            }
+        }
+    </script>
+@endpush
