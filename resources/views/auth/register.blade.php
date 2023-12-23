@@ -19,38 +19,45 @@
                   <div class="form-group">
                     <label for="name">Name</label>
                     <input id="name" type="text" class="form-control" name="name" tabindex="1" value="{{ old('name') }}" required autofocus autocomplete="name">
-                    <div class="invalid-feedback">
-                        Name is invalid
-                    </div>
                   </div>
+                  @error('name')
+                      <div class="text-danger mb-4" >
+                          {{ $message }}
+                      </div>
+                  @enderror
 
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control" name="email" tabindex="1" value="{{ old('email') }}" required autofocus autocomplete="username">
-                    <div class="invalid-feedback">
-                        Email is invalid
-                    </div>
                   </div>
+                  @error('email')
+                      <div class="text-danger mb-4" >
+                          {{ $message }}
+                      </div>
+                  @enderror
 
                   <div class="form-group">
                     <div class="d-block">
                     	<label for="password" class="control-label">Password</label>
                     </div>
                     <input id="password" type="password" class="form-control" name="password" tabindex="2" required autocomplete="new-password">
-                    <div class="invalid-feedback">
-                        Please fill in your password
-                    </div>
                   </div>
+                  @error('password')
+                      <div class="text-danger mb-4" >
+                          {{ $message }}
+                      </div>
+                  @enderror
 
                   <div class="form-group">
                     <div class="d-block">
                     	<label for="password_confirmation" class="control-label">Confirm Password</label>
                     </div>
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" tabindex="2" required autocomplete="new-password">
-                    <div class="invalid-feedback">
-                        Password confirmation did not match
-                    </div>
                   </div>
+                      <div class="text-danger mb-4" >
+                          {{ $message }}
+                      </div>
+                  @enderror
 
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">

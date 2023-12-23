@@ -19,10 +19,12 @@
                   <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email" type="email" class="form-control" name="email" tabindex="1" value="{{ old('email') }}" required autofocus autocomplete="username">
-                    <div class="invalid-feedback">
-                        Email is invalid
-                    </div>
                   </div>
+                  @error('email')
+                      <div class="text-danger mb-4" >
+                          {{ $message }}
+                      </div>
+                  @enderror
 
                   <div class="form-group">
                     <div class="d-block">
@@ -36,10 +38,12 @@
                       </div>
                     </div>
                     <input id="password" type="password" class="form-control" name="password" tabindex="2" required autocomplete="current-password">
-                    <div class="invalid-feedback">
-                        Please fill in your password
-                    </div>
                   </div>
+                  @error('password')
+                      <div class="text-danger mb-4" >
+                          {{ $message }}
+                      </div>
+                  @enderror
 
                   <div class="form-group">
                     <div class="custom-control custom-checkbox">
