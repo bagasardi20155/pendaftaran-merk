@@ -74,17 +74,9 @@
             <div class="d-sm-none d-lg-inline-block">Hi, {{ auth()->user()->name }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
                 @if (auth()->user()->email_verified_at)
-                    <div class="dropdown-title">Logged in 5 min ago</div>
-                    <a href="features-profile.html" class="dropdown-item has-icon">
+                    <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
                         <i class="far fa-user"></i> Profile
                     </a>
-                    <a href="features-activities.html" class="dropdown-item has-icon">
-                        <i class="fas fa-bolt"></i> Activities
-                    </a>
-                    <a href="features-settings.html" class="dropdown-item has-icon">
-                        <i class="fas fa-cog"></i> Settings
-                    </a>
-                    <div class="dropdown-divider"></div>
                 @endif
                 <form action="{{ route('logout') }}" method="post">
                     @csrf

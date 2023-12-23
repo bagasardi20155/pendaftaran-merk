@@ -54,6 +54,7 @@
                     </div>
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" tabindex="2" required autocomplete="new-password">
                   </div>
+                  @error('password_confirmation')
                       <div class="text-danger mb-4" >
                           {{ $message }}
                       </div>
