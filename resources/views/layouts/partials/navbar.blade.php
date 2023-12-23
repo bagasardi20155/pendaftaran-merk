@@ -88,7 +88,7 @@
                 @endif
                 <form action="{{ route('logout') }}" method="post">
                     @csrf
-                    <button type="submit" class="dropdown-item has-icon text-danger">
+                    <button type="submit" class="d-flex align-items-center dropdown-item has-icon text-danger">
                         <i class="fas fa-sign-out-alt"></i>Logout
                     </button>
                 </form>

@@ -32,7 +32,7 @@
                             <input type="hidden" name="id_user" value="{{ auth()->user()->id }}">
                             
                             <div class="form-group" style="margin-bottom: 10px">
-                                <label for="name" class="control-label">Nama Merk / Usaha</label>
+                                <label for="name" class="control-label">Nama Merk / Usaha <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="name" id="name" placeholder="Nama Merk / Usaha" required value="{{ old('name') }}">
                             </div>
                             @error('name')
@@ -42,7 +42,7 @@
                             @enderror
 
                             <div class="form-group" style="margin-bottom: 10px">
-                                <label for="address" class="control-label">Alamat Merk / Usaha</label>
+                                <label for="address" class="control-label">Alamat Merk / Usaha <span class="text-danger">*</span></label>
                                 <textarea class="form-control" name="address" id="address" placeholder="Alamat Merk / Usaha" required>{{ old('address') }}</textarea>
                             </div>
                             @error('address')
@@ -52,7 +52,7 @@
                             @enderror
 
                             <div class="form-group" style="margin-bottom: 10px">
-                                <label for="owner" class="control-label">Nama Pemilik Merk / Usaha</label>
+                                <label for="owner" class="control-label">Nama Pemilik Merk / Usaha <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="owner" id="owner" placeholder="Nama Pemilik Merk / Usaha" required value="{{ old('owner') }}">
                             </div>
                             @error('owner')
@@ -61,7 +61,7 @@
                                 </div>
                             @enderror
 
-                            <label class="control-label" for="logo" style="font-weight: 600; font-size: 12px; color: #34395e">Logo Merk / Usaha</label>
+                            <label class="control-label" for="logo" style="font-weight: 600; font-size: 12px; color: #34395e">Logo Merk / Usaha <span class="text-danger">*</span></label>
                             <div class="form-group custom-file">
                                 <input type="file" class="custom-file-input" name="logo" id="logo" required value="{{ old('logo') }}" accept=".jpg, .png" onchange="imagePreview('logo', 'imageLogo')">
                                 <label class="custom-file-label" for="logo">Choose file</label>
@@ -73,7 +73,7 @@
                                 </div>
                             @enderror
 
-                            <label for="suket_umk" style="font-weight: 600; font-size: 12px; color: #34395e">Surat Keterangan UMK</label>
+                            <label for="suket_umk" style="font-weight: 600; font-size: 12px; color: #34395e">Surat Keterangan UMK (optional)</label>
                             <div class="form-group custom-file">
                                 <input type="file" class="custom-file-input form-control" name="suket_umk" id="suket_umk" value="{{ old('suket_umk') }}" accept=".pdf, .png">
                                 <label class="custom-file-label" for="suket_umk">Choose file</label>
@@ -85,7 +85,7 @@
                                 </div>
                             @enderror
 
-                            <label class="control-label" for="applicant_signature" style="font-weight: 600; font-size: 12px; color: #34395e">Tanda Tangan Pemohon</label>
+                            <label class="control-label" for="applicant_signature" style="font-weight: 600; font-size: 12px; color: #34395e">Tanda Tangan Pemohon <span class="text-danger">*</span></label>
                             <div class="form-group custom-file">
                                 <input type="file" class="custom-file-input" name="applicant_signature" id="applicant_signature" required value="{{ old('applicant_signature') }}" accept=".jpg, .png" onchange="imagePreview('applicant_signature', 'imageSignature')">
                                 <label class="custom-file-label" for="applicant_signature">Choose file</label>

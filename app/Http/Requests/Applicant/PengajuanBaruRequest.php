@@ -31,7 +31,6 @@ class PengajuanBaruRequest extends FormRequest
             'logo' => 'required|image|mimes:png,jpg|max:1024',
             'suket_umk' => 'file|mimes:pdf,jpg|max:2048',
             'applicant_signature' => 'required|image|mimes:png,jpg|max:1024',
-            'id_status' => '1',
         ];
     }
 

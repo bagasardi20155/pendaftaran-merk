@@ -46,16 +46,18 @@
                                     <td>{{ $brand->owner }}</td>
                                     <td>
                                         @if ( $brand->brand_status[0]->status == 'waiting')
-                                            <span class="badge badge-pill badge-dark">{{ $brand->brand_status[0]->status }}</span>
+                                            <span class="badge badge-pill badge-dark">Proses Verifikasi</span>
                                         @elseif ( $brand->brand_status[0]->status == 'accepted')
-                                            <span class="badge badge-pill badge-success">{{ $brand->brand_status[0]->status }}</span>
+                                            <span class="badge badge-pill badge-success">Diterima</span>
                                         @elseif ( $brand->brand_status[0]->status == 'revision')
-                                            <span class="badge badge-pill badge-warning">{{ $brand->brand_status[0]->status }}</span>
+                                            <span class="badge badge-pill badge-warning">Perlu Direvisi</span>
+                                        @elseif ( $brand->brand_status[0]->status == 'revised')
+                                            <span class="badge badge-pill badge-warning">Revisi Diajukan</span>
                                         @elseif ( $brand->brand_status[0]->status == 'rejected')
-                                            <span class="badge badge-pill badge-danger">{{ $brand->brand_status[0]->status }}</span>
+                                            <span class="badge badge-pill badge-danger">Ditolak</span>
                                         @endif
                                     </td>
-                                    <td><a href="#" class="btn btn-primary" title="Detail Ajuan"><i class="far fa-eye"></i></a></td>
+                                    <td><a href="{{ route('applicant.pengajuan-baru.show', ['pengajuan_baru' => $brand->id]) }}" class="btn btn-primary" title="Detail Ajuan"><i class="far fa-eye"></i></a></td>
                                 </tr>
                             @endforeach    
                         @else    

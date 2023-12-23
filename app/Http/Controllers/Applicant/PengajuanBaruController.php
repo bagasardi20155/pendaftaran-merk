@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Applicant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Applicant\PengajuanBaruRequest;
+use App\Http\Requests\Applicant\UpdateAjuanRequest;
 use App\Models\Applicant\Brand;
 use App\Models\Applicant\BrandStatus;
 use App\Services\Applicant\FileUploadService;
@@ -60,6 +61,46 @@ class PengajuanBaruController extends Controller
             $tooltip = "Status Ajuan Anda : Menunggu Verifikasi Admin";
             Alert::success($msg, $tooltip);
             return Redirect::route('applicant.ajuan-merk.index');
+        } catch (\Throwable $th) {
+            return $this->handleError($th->getMessage(), []);
+        }
+    }
+
+    /**
+     * Display the pengajuan brand details
+     */
+    public function show($brand): View
+    {
+        $active = 'daftar-ajuan-merk';
+        $data = Brand::find($brand);
+
+        $status = BrandStatus::where('id_brand', $data->id)->orderBy('updated_at', 'desc')->get();
+        foreach ($status as $status_single) {
+            $status_history[] = $status_single->status;
+        }
+
+        return view('applicant.detail-ajuan-merk', compact('active', 'data', 'status_history', 'status'));
+    }
+
+    /**
+     * Edit / Revise the pengajuan brand details
+     */
+    public function update(UpdateAjuanRequest $request, $brand): RedirectResponse
+    {
+        try {
+            $data = Brand::find($brand)->update($request->validated());
+            $status = BrandStatus::create([
+                'id_brand' => $brand,
+                'status' => 'revised',
+                'message' => 'Ajuan Merk Revised'
+            ]);
+
+            $msg = "Revisi Ajuan Telah Diterima Admin";
+            $tooltip = "Silakan menunggu verifikasi oleh admin kembali";
+            Alert::success($msg, $tooltip);
+
+            return Redirect::route('applicant.ajuan-merk.index');
+
         } catch (\Throwable $th) {
             return $this->handleError($th->getMessage(), []);
         }

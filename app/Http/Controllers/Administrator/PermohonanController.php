@@ -22,7 +22,7 @@ class PermohonanController extends Controller
     public function index(): View
     {
         $active = 'daftar-permohonan';
-        $data = Brand::orderBy('created_at', 'desc')->get();
+        $data = Brand::orderBy('updated_at', 'desc')->get();
         return view('admin.daftar-permohonan', compact('active', 'data'));
     }
 
@@ -90,6 +90,7 @@ class PermohonanController extends Controller
             $up = BrandStatus::create($request->validated() + [
                 'id_brand' => $data->id,
             ]);
+            Brand::find($brand->id)->touch();
 
             $msg = "Status Ajuan Berhasil Diubah";
             Alert::success($msg);
