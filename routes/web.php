@@ -56,6 +56,7 @@ Route::name('applicant.')
     ->prefix('applicant')
     ->group(function () {
         Route::get('ajuan-merk', [AjuanMerkController::class, 'index'])->name('ajuan-merk.index');
+        Route::post('data-pdki', [PengajuanBaruController::class, 'get_data_pdki'])->name('ajuan-merk.pdki');
         Route::resource('pengajuan-baru', PengajuanBaruController::class);
 });
 // {{-- ------- --}}

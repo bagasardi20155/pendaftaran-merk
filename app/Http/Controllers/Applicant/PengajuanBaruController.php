@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Applicant;
 
+use App\Http\Controllers\Administrator\PermohonanController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\PDKIDataController;
 use App\Http\Requests\Applicant\PengajuanBaruRequest;
 use App\Http\Requests\Applicant\UpdateAjuanRequest;
 use App\Models\Applicant\Brand;
@@ -31,6 +33,26 @@ class PengajuanBaruController extends Controller
     {
         $active = 'pengajuan-baru';
         return view('applicant.pengajuan-baru', compact('active'));
+    }
+
+    /**
+     * Get similarity data of brand and existing data in pdki
+     */
+    public function get_data_pdki(PDKIDataController $pdki, Request $request): Array
+    {
+        $data_pdki = $pdki->get_pdki($request->input('inputText'));
+        $data = [];
+        $similarity = new PermohonanController();
+
+        foreach ($data_pdki['hits']['hits'] as $hits)
+        {
+            array_push($data, [
+                'name' => $hits['_source']['nama_merek'],
+                'akhir_perlindungan' => $hits['_source']['tanggal_berakhir_perlindungan'],
+                'similarity_rate' => round($similarity->similarity_percentage($request->input('inputText'), $hits['_source']['nama_merek'])),
+            ]);
+        }
+        return $data;
     }
 
     /**

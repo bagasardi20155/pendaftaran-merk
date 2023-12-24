@@ -33,7 +33,14 @@
                             
                             <div class="form-group" style="margin-bottom: 10px">
                                 <label for="name" class="control-label">Nama Merk / Usaha <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Nama Merk / Usaha" required value="{{ old('name') }}">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="Nama Merk / Usaha" required value="{{ old('name') }}">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <a class="btn btn-primary" id="check-btn" style="color: white">Check Similarity</a>
+                                    </div>
+                                </div>
                             </div>
                             @error('name')
                                 <div class="text-danger mb-4" >
@@ -105,13 +112,35 @@
 
                 <div class="col-6">
                     <div class="card">
-                        <div class="card-body">
-                            <h5>Logo Merk</h5>
-                            <img class="img-fluid" id="imageLogo" alt="" width="50%">
+                        <div class="card-body p-0">
+                            <div class="table-responsive" style="max-height: 327px">
+                              <table class="table table-striped table-md" id="table-pdki">
+                                <thead>
+                                    <tr>
+                                      <th>Merk</th>
+                                      <th>Akhir Perlindungan</th>
+                                      <th>Similarity Rate</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="item-pdki"></tbody>
+                              </table>
+                            </div>
                         </div>
-                        <div class="card-body py-4">
-                            <h5>Tanda Tangan Pemohon</h5>
-                            <img class="img-fluid" id="imageSignature" alt="" width="50%">
+                    </div>
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card-body">
+                                    <h5>Logo Merk</h5>
+                                    <img class="img-fluid" id="imageLogo" alt="" width="150px">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card-body py-4">
+                                    <h5>Tanda Tangan Pemohon</h5>
+                                    <img class="img-fluid" id="imageSignature" alt="" width="150px">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -140,4 +169,40 @@
             }
         }
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Event listener for the submit button
+        document.getElementById('check-btn').addEventListener('click', function() {
+            // Get the input value
+            let inputValue = document.getElementById('name').value;
+    
+            // Make an AJAX POST request to your Laravel route
+            fetch('/applicant/data-pdki', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Use Laravel's CSRF protection
+                },
+                body: JSON.stringify({ inputText: inputValue })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the table with the received array data
+                let tableBody = document.getElementById('item-pdki');
+                tableBody.innerHTML = ''; // Clear existing rows
+    
+                data.forEach(item => {
+                    let row = tableBody.insertRow();
+                    // Example: assuming 'item' is an object with properties 'column1' and 'column2'
+                    row.innerHTML = `<td>${item.name}</td><td>${item.akhir_perlindungan}</td><td><div class="badge badge-danger">${item.similarity_rate}%</div></td>`;
+                    // Add more cells based on your array structure
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+    </script>    
 @endpush
