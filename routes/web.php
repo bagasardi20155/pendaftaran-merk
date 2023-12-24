@@ -4,6 +4,7 @@ use App\Http\Controllers\Administrator\DashboardController;
 use App\Http\Controllers\Administrator\PermohonanController;
 use App\Http\Controllers\Applicant\AjuanMerkController;
 use App\Http\Controllers\Applicant\PengajuanBaruController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 $active = 'dashboard';
 Route::get('/dashboard', function () use($active) {
