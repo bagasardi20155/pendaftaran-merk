@@ -39,6 +39,10 @@ Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
         Route::get('daftar-pengguna', [DashboardController::class, 'daftar_pengguna'])->name('daftar-pengguna.index');
+        Route::get('daftar-pengguna/{user}', [DashboardController::class, 'detail_pengguna'])->name('daftar-pengguna.detail');
+        Route::delete('daftar-pengguna/{user}', [DashboardController::class, 'destroy'])->name('daftar-pengguna.destroy');
+        Route::post('daftar-pengguna', [DashboardController::class, 'grant_admin_role'])->name('daftar-pengguna.grant');
+
         Route::get('daftar-permohonan', [PermohonanController::class, 'index'])->name('daftar-permohonan.index');
         Route::get('detail/{brand}', [PermohonanController::class, 'detail'])->name('daftar-permohonan.detail');
         Route::post('detail/{brand}', [PermohonanController::class, 'store'])->name('daftar-permohonan.detail.store');

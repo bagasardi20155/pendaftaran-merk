@@ -53,7 +53,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-dark" title="Grant User Role"><i class="far fa-handshake"></i></a>
+                                        <a href="{{ route('admin.daftar-pengguna.detail', ['user' => $user->id]) }}" class="btn btn-dark" title="User Details"><i class="far fa-eye"></i></a>
                                     </td>
                                 </tr>
                             @endforeach    
