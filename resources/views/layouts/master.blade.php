@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>@yield('title')</title>
+    <title>Pendaftaran Merk HKI UNS | @yield('title')</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
@@ -22,15 +22,19 @@
 <body>
     <div id="app">
       <div class="main-wrapper">
-        <div class="navbar-bg"></div>
-        @if (auth()->check())
-            @include('layouts.partials.navbar')
+            @if (\Request::route()->getName() == "home")
             
-            @include('layouts.partials.sidebar')
-        @endif
+            @else
+                <div class="navbar-bg"></div>
+            @endif
+            @if (auth()->check())
+                @include('layouts.partials.navbar')
+            
+                @include('layouts.partials.sidebar')
+            @endif
           
             @yield('content')
-          </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('/', [HomeController::class, 'get_data'])->name('get_data');
 
 $active = 'dashboard';
 Route::get('/dashboard', function () use($active) {
