@@ -26,11 +26,11 @@
             
             @else
                 <div class="navbar-bg"></div>
-            @endif
-            @if (auth()->check())
-                @include('layouts.partials.navbar')
-            
-                @include('layouts.partials.sidebar')
+                @if (auth()->check())
+                    @include('layouts.partials.navbar')
+                
+                    @include('layouts.partials.sidebar')
+                @endif
             @endif
           
             @yield('content')

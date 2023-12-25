@@ -23,9 +23,19 @@
                 <div class="col-lg-10">
                     <div class="card-header"><h4 class="text-dark">Cari Merk Yang Terdaftar di Pangkalan Data Kekayaan Intelektual</h4></div>
                 </div>
-                <div class="col-lg-2">
-                    <a href="{{ route('login') }}" class="btn btn-info" style="text-align: center; margin-top: 20px">Login</a>
-                </div>
+                @if (auth()->check())
+                  @if (auth()->user()->hasRole('admin'))
+                    <a href="{{ route('dashboard') }}" class="btn btn-info" style="text-align: center; margin-top: 20px">Dashboard</a>
+                  @else
+                    <a href="{{ route('applicant.ajuan-merk.index') }}" class="btn btn-info" style="text-align: center; margin-top: 20px">Ajuan Merk</a>
+                  @endif
+                    <div class="col-lg-2">
+                    </div>
+                @else
+                    <div class="col-lg-2">
+                        <a href="{{ route('login') }}" class="btn btn-info" style="text-align: center; margin-top: 20px">Login</a>
+                    </div>
+                @endif
             </div>
 
             <div class="card-body">
@@ -53,7 +63,7 @@
           </div>
 
           {{-- search result --}}
-          @if ($data != null)  
+          @if ($input != null)  
             <div class="card card-success">
                 <div class="card-header"><h4 class="text-dark">Search Result of '{{ $input }}'</h4></div>
 
@@ -68,7 +78,7 @@
                                     <th>Logo</th>
                                     <th>Tgl. Pengajuan</th>
                                 </tr>
-                                @if ($data == null)
+                                @if ($data == null || count($data) == 0)
                                     <tr>
                                         <td colspan="4" class="text-center">Tidak ada data yang ditemukan</td>
                                     </tr>
@@ -82,30 +92,6 @@
                                         </tr>
                                     @endforeach
                                 @endif
-                            </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          @else
-            <div class="card card-success">
-                <div class="card-header"><h4 class="text-dark">Search Result of '{{ $input }}'</h4></div>
-
-                <div class="card-body">
-                    <div class="card px-3 py-2 border shadow-sm border-1" style="border-radius: 5px">
-                        <div class="card-body p-0">
-                            <div class="table-responsive" style="max-height: 327px">
-                            <table class="table table-striped table-md">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Merk</th>
-                                    <th>Logo</th>
-                                    <th>Tgl. Pengajuan</th>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="text-center">Tidak ada data yang ditemukan</td>
-                                </tr>
                             </table>
                             </div>
                         </div>

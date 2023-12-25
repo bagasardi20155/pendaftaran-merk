@@ -12,7 +12,7 @@
 
             {{-- administrator menus --}}
             @if (auth()->user()->hasRole('admin'))   
-                <li class="{{ $active == 'dashboard' ? 'active' : '' }}"><a class="nav-link" href="#"><i class="far fa-chart-bar"></i> <span>Dashboard</span></a></li>
+                <li class="{{ $active == 'dashboard' ? 'active' : '' }}"><a class="nav-link" href="{{ route('dashboard') }}"><i class="far fa-chart-bar"></i> <span>Dashboard</span></a></li>
                 <li class="nav-item dropdown {{ in_array($active, ['daftar-permohonan', 'merk-terdaftar', 'kelola-pengumuman']) ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-folder-open"></i><span>Permohonan</span></a>
                     <ul class="dropdown-menu">
@@ -27,14 +27,8 @@
 
             {{-- applicant menus --}}
             @if (auth()->user()->hasRole('applicant'))   
-                <li class="{{ $active == 'dashboard' ? 'active' : '' }}"><a class="nav-link" href="#"><i class="far fa-chart-bar"></i> <span>Dashboard</span></a></li>
-                <li class="nav-item dropdown {{ in_array($active, ['daftar-ajuan-merk', 'pengajuan-baru']) ? 'active' : '' }}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-flag"></i><span>Pengajuan Merk</span></a>
-                    <ul class="dropdown-menu">
-                        <li class="{{ $active == 'daftar-ajuan-merk' ? 'active' : '' }}"><a class="nav-link" href="{{ route('applicant.ajuan-merk.index') }}">Daftar Ajuan Merk</a></li>
-                        <li class="{{ $active == 'pengajuan-baru' ? 'active' : '' }}"><a class="nav-link" href="{{ route('applicant.pengajuan-baru.create') }}">Pengajuan Baru</a></li>
-                    </ul>
-                </li>
+            <li class="{{ $active == 'daftar-ajuan-merk' ? 'active' : '' }}"><a class="nav-link" href="{{ route('applicant.ajuan-merk.index') }}"><i class="fas fa-list"></i> <span>Daftar Ajuan</span></a></li>
+                <li class="{{ $active == 'pengajuan-baru' ? 'active' : '' }}"><a class="nav-link" href="{{ route('applicant.pengajuan-baru.create') }}"><i class="far fa-flag"></i> <span>Pengajuan Baru</span></a></li>
             @endif
             {{-- ------- --}}
         </ul>    
