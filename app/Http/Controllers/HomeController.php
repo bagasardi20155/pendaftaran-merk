@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Applicant\Brand;
 use App\Models\Applicant\BrandStatus;
 use App\Models\Visitor;
@@ -107,12 +108,18 @@ class HomeController extends Controller
                             ->get();
             $dataAnnually = $annually->pluck('count', 'year')->toArray();
 
+            //data pengumuman
+            $generated = Announcement::where('type', 'generated')->orderBy('updated_at', 'desc')->limit(7)->get();
+            $created = Announcement::where('type', 'created')->orderBy('updated_at', 'desc')->limit(3)->get();
+            $announcements = $generated->merge($created);
+
             return view('admin.dashboard', compact(
                 'active', 
                 'appl_daily', 'appl_daily_proc', 'appl_daily_fin',
                 'appl_monthly', 'appl_monthly_proc', 'appl_monthly_fin',
                 'appl_annually', 'appl_annually_proc', 'appl_annually_fin',
-                'dataMonthly', 'dataAnnually'
+                'dataMonthly', 'dataAnnually',
+                'announcements'
             ));
         } else {
             return redirect()->route('applicant.ajuan-merk.index');

@@ -197,6 +197,9 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
+        // Other service providers
+        App\Providers\NavbarServiceProvider::class,
+
     ],
 
     /*

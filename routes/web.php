@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Administrator\DashboardController;
 use App\Http\Controllers\Administrator\PermohonanController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Applicant\AjuanMerkController;
 use App\Http\Controllers\Applicant\PengajuanBaruController;
 use App\Http\Controllers\HomeController;
@@ -19,10 +20,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// {{ homepage & dashboard routes }}
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/', [HomeController::class, 'get_data'])->name('get_data');
-
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+
+// {{ announcement route }}
+Route::get('/announcement', [AnnouncementController::class, 'get_announcement'])->name('get_announcement');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,6 +40,10 @@ Route::name('admin.')
     ->middleware(['role:admin'])
     ->prefix('admin')
     ->group(function () {
+        // {{ announcement routes for admin }}
+        Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement.index');
+        Route::get('/generate-announcement', [AnnouncementController::class, 'generate'])->name('announcement.generate');
+
         Route::get('daftar-pengguna', [DashboardController::class, 'daftar_pengguna'])->name('daftar-pengguna.index');
         Route::get('daftar-pengguna/{user}', [DashboardController::class, 'detail_pengguna'])->name('daftar-pengguna.detail');
         Route::delete('daftar-pengguna/{user}', [DashboardController::class, 'destroy'])->name('daftar-pengguna.destroy');

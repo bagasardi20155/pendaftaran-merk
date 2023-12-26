@@ -85,7 +85,7 @@
               <div class="card-header col-lg-12 mt-3" style="display: block">
                 <div class="row">
                   <div class="col-lg-6">
-                    <h4>Statistics</h4>
+                    <h4>Statistik Pengunjung Sistem</h4>
                   </div>
                   <div class="col-lg-6">
                     <div class="card-header-action float-right">
@@ -105,46 +105,34 @@
           <div class="col-lg-4 col-md-12 col-12 col-sm-12">
             <div class="card">
               <div class="card-header">
-                <h4>Recent Activities</h4>
+                <h4>Pengumuman Terbaru</h4>
               </div>
               <div class="card-body">
                 <ul class="list-unstyled list-unstyled-border">
-                  <li class="media">
-                    <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-1.png" alt="avatar">
-                    <div class="media-body">
-                      <div class="float-right text-primary">Now</div>
-                      <div class="media-title">Farhan A Mujib</div>
-                      <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
-                    </div>
-                  </li>
-                  <li class="media">
-                    <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-2.png" alt="avatar">
-                    <div class="media-body">
-                      <div class="float-right">12m</div>
-                      <div class="media-title">Ujang Maman</div>
-                      <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
-                    </div>
-                  </li>
-                  <li class="media">
-                    <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-3.png" alt="avatar">
-                    <div class="media-body">
-                      <div class="float-right">17m</div>
-                      <div class="media-title">Rizal Fakhri</div>
-                      <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
-                    </div>
-                  </li>
-                  <li class="media">
-                    <img class="mr-3 rounded-circle" width="50" src="../assets/img/avatar/avatar-4.png" alt="avatar">
-                    <div class="media-body">
-                      <div class="float-right">21m</div>
-                      <div class="media-title">Alfa Zulkarnain</div>
-                      <span class="text-small text-muted">Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.</span>
-                    </div>
-                  </li>
+                  @foreach ($announcements as $data)
+                    @php
+                        $announcement = explode("|", $data['announcement']);
+                    @endphp
+                    <li class="media">
+                      <img class="mr-3 rounded" width="50" src="{{ asset($announcement[1]) }}" alt="avatar">
+                      <div class="media-body">
+                        <div class="float-right text-primary">{{ \Carbon\Carbon::parse($announcement[3])->format('d-m-Y') }}</div>
+                        <div class="media-title">{{ $announcement[0] }}</div>
+                        @if ($announcement[4] == "waiting" || $announcement[4] == "revision" || $announcement[4] == "revised")
+                            <span class="badge badge-pill badge-warning" style="padding-top: 1px; padding-bottom: 1px">Proses Pengajuan</span><br>
+                        @elseif ($announcement[4] == "rejected")
+                            <span class="badge badge-pill badge-danger" style="padding-top: 1px; padding-bottom: 1px">Merk Ditolak</span><br>
+                        @elseif ($announcement[4] == "accepted")
+                            <span class="badge badge-pill badge-success" style="padding-top: 1px; padding-bottom: 1px">Merk Diterima</span><br>
+                        @endif
+                        <span class="text-small text-muted">{{ $announcement[2] }}</span>
+                      </div>
+                    </li>
+                  @endforeach
                 </ul>
                 <div class="text-center pt-1 pb-1">
-                  <a href="#" class="btn btn-primary btn-lg btn-round">
-                    View All
+                  <a href="" class="btn btn-primary btn-lg btn-round">
+                    That's All
                   </a>
                 </div>
               </div>
