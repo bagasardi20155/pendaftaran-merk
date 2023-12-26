@@ -41,8 +41,11 @@ Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
         // {{ announcement routes for admin }}
-        Route::get('/announcement', [AnnouncementController::class, 'index'])->name('announcement.index');
-        Route::get('/generate-announcement', [AnnouncementController::class, 'generate'])->name('announcement.generate');
+        Route::get('announcement', [AnnouncementController::class, 'index'])->name('announcement.index');
+        Route::get('generate-announcement', [AnnouncementController::class, 'generate'])->name('announcement.generate');
+        Route::post('announcement', [AnnouncementController::class, 'store'])->name('announcement.store');
+        Route::put('announcement/{announcement}', [AnnouncementController::class, 'update'])->name('announcement.update');
+        Route::delete('announcement/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
 
         Route::get('daftar-pengguna', [DashboardController::class, 'daftar_pengguna'])->name('daftar-pengguna.index');
         Route::get('daftar-pengguna/{user}', [DashboardController::class, 'detail_pengguna'])->name('daftar-pengguna.detail');

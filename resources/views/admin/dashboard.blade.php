@@ -113,21 +113,37 @@
                     @php
                         $announcement = explode("|", $data['announcement']);
                     @endphp
-                    <li class="media">
-                      <img class="mr-3 rounded" width="50" src="{{ asset($announcement[1]) }}" alt="avatar">
-                      <div class="media-body">
-                        <div class="float-right text-primary">{{ \Carbon\Carbon::parse($announcement[3])->format('d-m-Y') }}</div>
-                        <div class="media-title">{{ $announcement[0] }}</div>
-                        @if ($announcement[4] == "waiting" || $announcement[4] == "revision" || $announcement[4] == "revised")
-                            <span class="badge badge-pill badge-warning" style="padding-top: 1px; padding-bottom: 1px">Proses Pengajuan</span><br>
-                        @elseif ($announcement[4] == "rejected")
-                            <span class="badge badge-pill badge-danger" style="padding-top: 1px; padding-bottom: 1px">Merk Ditolak</span><br>
-                        @elseif ($announcement[4] == "accepted")
-                            <span class="badge badge-pill badge-success" style="padding-top: 1px; padding-bottom: 1px">Merk Diterima</span><br>
-                        @endif
-                        <span class="text-small text-muted">{{ $announcement[2] }}</span>
-                      </div>
-                    </li>
+
+                    @if ($data['type'] == "created") 
+                      <li class="media">
+                        <img class="mr-3 rounded" width="50" src="{{ asset('admin/img/avatar/avatar-4.png') }}" alt="Admin">
+                        <div class="media-body">
+                          <div class="float-right text-primary">{{ \Carbon\Carbon::parse($data['updated_at'])->format('d-m-Y') }}</div>
+                          <div class="media-title">{{ $announcement[0] }}</div>
+                          <span class="text-small text-muted">{{ $announcement[1] }}</span>
+                        </div>
+                      </li>
+                    @elseif ($data['type'] == "generated")    
+                      <li class="media">
+                        <img class="mr-3 rounded" width="50" src="{{ asset($announcement[1]) }}" alt="avatar">
+                        <div class="media-body">
+                          <div class="float-right text-primary">{{ \Carbon\Carbon::parse($announcement[3])->format('d-m-Y') }}</div>
+                          <div class="media-title">{{ $announcement[0] }}</div>
+                          @if ($announcement[4] == "waiting" || $announcement[4] == "revision" || $announcement[4] == "revised")
+                              <span class="badge badge-pill badge-warning" style="padding-top: 1px; padding-bottom: 1px">Proses Pengajuan</span><br>
+                          @elseif ($announcement[4] == "rejected")
+                              <span class="badge badge-pill badge-danger" style="padding-top: 1px; padding-bottom: 1px">Merk Ditolak</span><br>
+                          @elseif ($announcement[4] == "accepted")
+                              <span class="badge badge-pill badge-success" style="padding-top: 1px; padding-bottom: 1px">Merk Diterima</span><br>
+                          @endif
+                          <span class="text-small text-muted">{{ $announcement[2] }}</span>
+                        </div>
+                      </li>
+                    @endif
+
+                    @if ($loop->iteration == 4)
+                        @break
+                    @endif
                   @endforeach
                 </ul>
                 <div class="text-center pt-1 pb-1">

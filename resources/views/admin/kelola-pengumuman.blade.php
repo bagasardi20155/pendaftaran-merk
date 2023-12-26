@@ -20,6 +20,7 @@
         </div>
 
         <a href="{{ route('admin.announcement.generate') }}" class="btn btn-primary mb-3"><i class="fas fa-sync-alt"></i> Generate Pengumuman dari Permohonan Merk</a>
+        <a href="#" class="btn btn-info mb-3" id="btn-modal-announcement" data-toggle="modal" data-target="#modal-announcement"><i class="fas fa-plus"></i> Buat Announcement Baru</a>
         <div class="section-body">
             <div class="row">
             <div class="col-12">
@@ -31,7 +32,8 @@
                         <tr>
                             <th>No</th>
                             <th>Pengumuman</th>
-                            <th>Status</th>
+                            <th>Tipe</th>
+                            <th>Ditampilkan</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
@@ -43,17 +45,43 @@
                                     <td>{{ $announcement->announcement }}</td>
                                     <td>
                                         @if ( $announcement->type == "generated" )
-                                            <span class="badge badge-pill badge-success">
-                                                ditampilkan
+                                            <span class="badge badge-pill badge-primary">
+                                                generated
                                             </span>
-                                        @elseif ( $announcement->type == "expired" )
-                                            <span class="badge badge-pill badge-dark">
-                                                disembunyikan
+                                        @elseif ( $announcement->type == "created" || $announcement->type == "expired_created" )
+                                            <span class="badge badge-pill badge-info">
+                                                created by admin
                                             </span>
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-dark" title="User Details"><i class="far fa-eye"></i></a>
+                                        <form action="{{ route('admin.announcement.update', ['announcement' => $announcement->id]) }}" method="POST">
+                                            @method('put')
+                                            @csrf
+
+                                            <div class="form-group">
+                                                <label class="custom-switch mt-2">
+                                                  <input type="checkbox" name="type" onchange="this.form.submit()" class="custom-switch-input" 
+                                                    {{ $announcement['type'] == "generated" ? "disabled" : "" }}
+                                                    @if ($announcement['type'] == "created")
+                                                        checked
+                                                    @elseif ($announcement['type'] == "generated")
+                                                        checked
+                                                    @endif>
+                                                  <span class="custom-switch-indicator"></span>
+                                                </label>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        @if ($announcement->type == "created" || $announcement->type == "expired_created")
+                                        <form action="{{ route('admin.announcement.destroy', ['announcement' => $announcement->id]) }}" method="POST">
+                                            @method('delete')
+                                            @csrf
+
+                                            <button type="submit" class="btn btn-danger" title="Hapus Pengumuman"><i class="far fa-trash-alt"></i></button>
+                                        </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach    
@@ -69,6 +97,53 @@
             </div>
         </div>
     </section>
+</div>
+
+{{-- modal announcement --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-announcement">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ route('admin.announcement.store') }}">
+                    @csrf
+                    @method('post')
+                    <h4 class="text-lg font-medium text-dark">
+                        Tambah Pengumuman Baru
+                    </h4>
+                    <div>
+                        <div class="form-group">
+                            <label for="headline" class="control-label">Headline Pengumuman <span class="text-danger">*</span></label>
+                            <input id="headline" type="headline" class="form-control" name="headline" tabindex="2" required autocomplete="headline">
+                        </div>
+                        @error('headline')
+                            <div class="text-danger mb-4" >
+                                {{ $message }}
+                            </div>
+                        @enderror
+
+                        <div class="form-group">
+                            <label for="content" class="control-label">Isi Pengumuman <span class="text-danger">*</span></label>
+                            <textarea name="content" id="content" cols="30" rows="3" required class="form-control" style="height: 100%"></textarea>
+                        </div>
+                        @error('content')
+                            <div class="text-danger mb-4" >
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="row modal-footer br mt-3">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="submit-confirm">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

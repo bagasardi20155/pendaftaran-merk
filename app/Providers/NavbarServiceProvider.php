@@ -28,9 +28,9 @@ class NavbarServiceProvider extends ServiceProvider
         // Using a view composer to share data with the navbar partial
         View::composer('layouts.partials.navbar', function ($view) {
             // Fetch the data
+            $created = Announcement::where('type', 'created')->orderBy('updated_at', 'desc')->get();
             $generated = Announcement::where('type', 'generated')->orderBy('updated_at', 'desc')->limit(7)->get();
-            $created = Announcement::where('type', 'created')->orderBy('updated_at', 'desc')->limit(3)->get();
-            $data = $generated->merge($created);
+            $data = $created->merge($generated);
 
             // Pass the variable to the view
             $view->with('announcements', $data);

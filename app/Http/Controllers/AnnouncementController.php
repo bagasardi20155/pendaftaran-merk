@@ -17,10 +17,10 @@ class AnnouncementController extends Controller
      */
     public function get_announcement()
     {
+        $created = Announcement::where('type', 'created')->orWhere('type', 'expired_created')->orderBy('updated_at', 'desc')->get();
         $generated = Announcement::where('type', 'generated')->orderBy('updated_at', 'desc')->limit(7)->get();
-        $created = Announcement::where('type', 'created')->orderBy('updated_at', 'desc')->limit(3)->get();
 
-        $data = $generated->merge($created);
+        $data = $created->merge($generated);
         
         return $data;
     }
@@ -42,7 +42,7 @@ class AnnouncementController extends Controller
     {
         // change status to expired
         $expired = Announcement::where('type', 'generated')->update([
-            'type' => 'expired',
+            'type' => 'expired_generated',
         ]);
 
         // store new announcment
@@ -57,6 +57,67 @@ class AnnouncementController extends Controller
         $msg = "Pengumuman berhasil digenerate!";
         $tooltip = "Untuk melihat pengumuman dapat dilakukan di icon nofitikasi";
         Alert::success($msg, $tooltip);
+
+        return redirect()->route('admin.announcement.index');
+    }
+
+    /**
+     * Create new announcement
+     */
+    public function store(Request $request): RedirectResponse
+    {
+        // store new announcement
+        $validated = $request->validate([
+            'headline' => 'required',
+            'content' => 'required',
+        ]);
+
+        $announcement = Announcement::create([
+            'announcement' => $request['headline'] . "|" . $request['content'],
+            'type' => 'created',
+        ]);
+
+        $msg = "Pengumuman berhasil dibuat dan ditampilkan!";
+        $tooltip = "Untuk melihat pengumuman dapat dilakukan di icon nofitikasi";
+        Alert::success($msg, $tooltip);
+
+        return redirect()->route('admin.announcement.index');
+    }
+
+    /**
+     * Update type of announcement
+     */
+    public function update(Announcement $announcement): RedirectResponse
+    {
+        // update type
+        if ($announcement['type'] == "created") {
+            $data = $announcement->update([
+                'type' => 'expired_created'
+            ]);
+            $msg = "Pengumuman berhasil disembunyikan!";
+
+        } else {
+            $data = $announcement->update([
+                'type' => 'created'
+            ]);
+            $msg = "Pengumuman berhasil ditampilkan!";
+        }
+
+        toast($msg,'success');
+
+        return redirect()->route('admin.announcement.index');
+    }
+
+    /**
+     * Delete admin's announcement
+     */
+    public function destroy($announcement): RedirectResponse
+    {
+        // delete data
+        $data = Announcement::destroy($announcement);
+
+        $msg = "Pengumuman berhasil dihapus!";
+        toast($msg,'success');
 
         return redirect()->route('admin.announcement.index');
     }

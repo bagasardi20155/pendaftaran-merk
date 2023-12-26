@@ -20,26 +20,42 @@
                         @php
                             $announcement = explode("|", $data['announcement']);
                         @endphp
-                        <a href="#" class="dropdown-item">
-                            <div class="dropdown-item-icon text-dark">
-                                <img src="{{ asset($announcement[1]) }}" alt="Logo Brand" width="80%">
-                            </div>
-                            <div class="dropdown-item-desc">
-                                <div class="row">
-                                    <div class="col-md-6"><h6>{{ $announcement[0] }}</h6></div>
-                                    <div class="col-md-6"><b class="float-right">{{ \Carbon\Carbon::parse($announcement[3])->format('d-m-Y') }}</b></div>
+
+                        @if ($data['type']== "created")
+                            <a href="#" class="dropdown-item">
+                                <div class="dropdown-item-icon text-dark">
+                                    <img class="rounded" src="{{ asset('admin/img/avatar/avatar-4.png') }}" alt="Admin" width="80%">
                                 </div>
-                                
-                                @if ($announcement[4] == "waiting" || $announcement[4] == "revision" || $announcement[4] == "revised")
-                                    <span class="badge badge-pill badge-warning" style="padding-top: 1px; padding-bottom: 1px">Proses Pengajuan</span>
-                                @elseif ($announcement[4] == "rejected")
-                                    <span class="badge badge-pill badge-danger" style="padding-top: 1px; padding-bottom: 1px">Merk Ditolak</span>
-                                @elseif ($announcement[4] == "accepted")
-                                    <span class="badge badge-pill badge-success" style="padding-top: 1px; padding-bottom: 1px">Merk Diterima</span>
-                                @endif
-                                <div class="time">{{ $announcement[2] }}</div>
-                            </div>
-                        </a>
+                                <div class="dropdown-item-desc">
+                                    <div class="row">
+                                        <div class="col-md-6"><h6>{{ $announcement[0] }}</h6></div>
+                                        <div class="col-md-6"><b class="float-right">{{ \Carbon\Carbon::parse($data['updated_at'])->format('d-m-Y') }}</b></div>
+                                    </div>
+                                    <div class="time">{{ $announcement[1] }}</div>
+                                </div>
+                            </a>
+                        @elseif ($data['type'] == "generated")
+                            <a href="#" class="dropdown-item">
+                                <div class="dropdown-item-icon text-dark">
+                                    <img class="rounded" src="{{ asset($announcement[1]) }}" alt="Logo Brand" width="80%">
+                                </div>
+                                <div class="dropdown-item-desc">
+                                    <div class="row">
+                                        <div class="col-md-6"><h6>{{ $announcement[0] }}</h6></div>
+                                        <div class="col-md-6"><b class="float-right">{{ \Carbon\Carbon::parse($announcement[3])->format('d-m-Y') }}</b></div>
+                                    </div>
+                                    
+                                    @if ($announcement[4] == "waiting" || $announcement[4] == "revision" || $announcement[4] == "revised")
+                                        <span class="badge badge-pill badge-warning" style="padding-top: 1px; padding-bottom: 1px">Proses Pengajuan</span>
+                                    @elseif ($announcement[4] == "rejected")
+                                        <span class="badge badge-pill badge-danger" style="padding-top: 1px; padding-bottom: 1px">Merk Ditolak</span>
+                                    @elseif ($announcement[4] == "accepted")
+                                        <span class="badge badge-pill badge-success" style="padding-top: 1px; padding-bottom: 1px">Merk Diterima</span>
+                                    @endif
+                                    <div class="time">{{ $announcement[2] }}</div>
+                                </div>
+                            </a>
+                        @endif
                     @endforeach
                 </div>
                 <div class="dropdown-footer text-center">

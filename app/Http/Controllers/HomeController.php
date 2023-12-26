@@ -109,10 +109,10 @@ class HomeController extends Controller
             $dataAnnually = $annually->pluck('count', 'year')->toArray();
 
             //data pengumuman
+            $created = Announcement::where('type', 'created')->orderBy('updated_at', 'desc')->get();
             $generated = Announcement::where('type', 'generated')->orderBy('updated_at', 'desc')->limit(7)->get();
-            $created = Announcement::where('type', 'created')->orderBy('updated_at', 'desc')->limit(3)->get();
-            $announcements = $generated->merge($created);
-
+            $announcements = $created->merge($generated);
+            
             return view('admin.dashboard', compact(
                 'active', 
                 'appl_daily', 'appl_daily_proc', 'appl_daily_fin',
