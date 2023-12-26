@@ -55,11 +55,10 @@ class HomeController extends Controller
                 ]);
             }
             
-            $data_local = Brand::whereRaw("SOUNDEX(name) = SOUNDEX('$request->name')")->get([
-                'name',
-                'logo',
-                'created_at',
-            ])->toArray();
+            $data_local = Brand::selectRaw("name, logo, created_at AS tgl_pengajuan")
+                            ->whereRaw("SOUNDEX(name) = SOUNDEX('$request->name')")
+                            ->get()
+                            ->toArray();
                 
             $data = array_merge($data_pdki, $data_local);
             
@@ -112,7 +111,7 @@ class HomeController extends Controller
             $created = Announcement::where('type', 'created')->orderBy('updated_at', 'desc')->get();
             $generated = Announcement::where('type', 'generated')->orderBy('updated_at', 'desc')->limit(7)->get();
             $announcements = $created->merge($generated);
-            
+
             return view('admin.dashboard', compact(
                 'active', 
                 'appl_daily', 'appl_daily_proc', 'appl_daily_fin',
