@@ -229,6 +229,10 @@
                                 <input name="owner" type="text" {{ $status_history[0] == "revision" ? '' : 'disabled'}} value="{{ $data->owner }}" class="form-control">
                             </div>
                             <div class="card-body">
+                                <h5>Kelas Merk</h5>
+                                <input type="text" {{ $status_history[0] == "revision" ? '' : 'disabled'}} value="{{ $data->kelas }}" class="form-control">
+                            </div>
+                            <div class="card-body">
                                 <h5>Alamat Usaha</h5>
                                 <textarea name="address" id="adress" cols="30" rows="6" {{ $status_history[0] == "revision" ? '' : 'disabled'}} class="form-control" style="height: 100%">{{ $data->address }}</textarea>
                             </div>

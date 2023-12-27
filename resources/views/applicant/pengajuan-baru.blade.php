@@ -68,6 +68,16 @@
                                 </div>
                             @enderror
 
+                            <div class="form-group" style="margin-bottom: 10px">
+                                <label for="kelas" class="control-label">Kelas Merk <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="kelas" id="kelas" placeholder="Isikan dengan 1 - 45" required value="{{ old('kelas') }}">
+                            </div>
+                            @error('kelas')
+                                <div class="text-danger mb-4" >
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
                             <label class="control-label" for="logo" style="font-weight: 600; font-size: 12px; color: #34395e">Logo Merk / Usaha <span class="text-danger">*</span></label>
                             <div class="form-group custom-file">
                                 <input type="file" class="custom-file-input" name="logo" id="logo" required value="{{ old('logo') }}" accept=".jpg, .png" onchange="imagePreview('logo', 'imageLogo')">

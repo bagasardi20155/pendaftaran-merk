@@ -52,10 +52,12 @@ class HomeController extends Controller
                     'name' => $hits['_source']['nama_merek'],
                     'logo' => $hits['_source']['image'][0]['image_path'],
                     'tgl_pengajuan' => $hits['_source']['tanggal_permohonan'],
+                    'status' => $hits['_source']['status_permohonan'],
+                    'kelas' => $hits['_source']['t_class'][0]['class_no'],
                 ]);
             }
             
-            $data_local = Brand::selectRaw("name, logo, created_at AS tgl_pengajuan")
+            $data_local = Brand::selectRaw("id, name, logo, created_at AS tgl_pengajuan, kelas, owner")
                             ->whereRaw("SOUNDEX(name) = SOUNDEX('$request->name')")
                             ->get()
                             ->toArray();
@@ -65,6 +67,7 @@ class HomeController extends Controller
             return redirect()->route('home', [
                 'data' => $data,
                 'input' => $input,
+                'data_local' => $data_local,
             ]);
         } else {
             return redirect()->route('home', ['data' => null]);
@@ -109,8 +112,8 @@ class HomeController extends Controller
 
             //data pengumuman
             $created = Announcement::where('type', 'created')->orderBy('updated_at', 'desc')->get();
-            $generated = Announcement::where('type', 'generated')->orderBy('updated_at', 'desc')->limit(7)->get();
-            $announcements = $created->merge($generated);
+            // $generated = Announcement::where('type', 'generated')->orderBy('updated_at', 'desc')->limit(7)->get();
+            $announcements = $created;
 
             return view('admin.dashboard', compact(
                 'active', 

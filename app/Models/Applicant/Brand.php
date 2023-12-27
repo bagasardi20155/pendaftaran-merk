@@ -15,7 +15,7 @@ class Brand extends Model
 
     protected $table = 'brands';
     protected $primary_key = 'id';
-    protected $fillable = ['id_user','name','address','owner','logo','suket_umk','applicant_signature'];
+    protected $fillable = ['id_user','name','address', 'kelas', 'owner','logo','suket_umk','applicant_signature'];
 
     public function user()
     {

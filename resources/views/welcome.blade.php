@@ -77,19 +77,36 @@
                                     <th>Merk</th>
                                     <th>Logo</th>
                                     <th>Tgl. Pengajuan</th>
+                                    <th>Kelas</th>
+                                    <th>Status</th>
                                 </tr>
                                 @if ($data == null || count($data) == 0)
                                     <tr>
                                         <td colspan="4" class="text-center">Tidak ada data yang ditemukan</td>
                                     </tr>
                                 @else
+                                {{-- {{ dd($data) }} --}}
+                                {{-- {{ dd($data) }} --}}
                                     @foreach ($data as $pdki)
+                                      @if (count($pdki) == 6)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $pdki['name'] }}</td>
                                             <td><img src="{{ $pdki['logo'] }}" alt="Logo Brand" style="width: 50px"></td>
                                             <td>{{ \Carbon\Carbon::parse($pdki['tgl_pengajuan'])->format('Y-m-d') }}</td>
+                                            <td>{{ $pdki['kelas'] }}</td>
+                                            <td><span class="badge badge-pill badge-warning">{{ \App\Models\Applicant\BrandStatus::where('id_brand', $pdki['id'])->latest()->first()->status }}</span></td>
                                         </tr>
+                                      @else
+                                        <tr>
+                                          <td>{{ $loop->iteration }}</td>
+                                          <td>{{ $pdki['name'] }}</td>
+                                          <td><img src="{{ $pdki['logo'] }}" alt="Logo Brand" style="width: 50px"></td>
+                                          <td>{{ \Carbon\Carbon::parse($pdki['tgl_pengajuan'])->format('Y-m-d') }}</td>
+                                          <td>{{ $pdki['kelas'] }}</td>
+                                          <td><span class="badge badge-pill badge-warning">{{ $pdki['status'] }}</span></td>
+                                        </tr>
+                                      @endif
                                     @endforeach
                                 @endif
                             </table>

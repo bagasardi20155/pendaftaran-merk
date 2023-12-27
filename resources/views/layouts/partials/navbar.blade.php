@@ -16,12 +16,11 @@
                 </div>
                 <div class="dropdown-list-content dropdown-list-icons">
                     {{-- get announcement --}}
-                    @foreach ($announcements as $data)    
-                        @php
-                            $announcement = explode("|", $data['announcement']);
-                        @endphp
-
-                        @if ($data['type']== "created")
+                    @if (auth()->user()->hasRole('applicant'))
+                        @foreach ($created as $data)    
+                            @php
+                                $announcement = explode("|", $data['announcement']);
+                            @endphp
                             <a href="#" class="dropdown-item">
                                 <div class="dropdown-item-icon text-dark">
                                     <img class="rounded" src="{{ asset('admin/img/avatar/avatar-4.png') }}" alt="Admin" width="80%">
@@ -34,29 +33,72 @@
                                     <div class="time">{{ $announcement[1] }}</div>
                                 </div>
                             </a>
-                        @elseif ($data['type'] == "generated")
+                        @endforeach
+
+                        @foreach ($generated as $item)
                             <a href="#" class="dropdown-item">
                                 <div class="dropdown-item-icon text-dark">
-                                    <img class="rounded" src="{{ asset($announcement[1]) }}" alt="Logo Brand" width="80%">
+                                    <img class="rounded" src="{{ asset($item['logo']) }}" alt="Logo Brand" width="80%">
+                                </div>
+                                <div class="dropdown-item-desc">
+                                    <div class="row">
+                                        <div class="col-md-6"><h6>{{ $item['name'] }}</h6></div>
+                                        <div class="col-md-6"><b class="float-right">{{ \Carbon\Carbon::parse($item['created_at'])->format('d-m-Y') }}</b></div>
+                                    </div>
+                                    
+                                    @if ($item->brand_status[0]->status == "waiting" || $item->brand_status[0]->status == "revision" || $item->brand_status[0]->status == "revised")
+                                        <span class="badge badge-pill badge-warning" style="padding-top: 1px; padding-bottom: 1px">Proses Pengajuan</span>
+                                    @elseif ($item->brand_status[0]->status == "rejected")
+                                        <span class="badge badge-pill badge-danger" style="padding-top: 1px; padding-bottom: 1px">Merk Ditolak</span>
+                                    @elseif ($item->brand_status[0]->status == "accepted")
+                                        <span class="badge badge-pill badge-success" style="padding-top: 1px; padding-bottom: 1px">Merk Diterima</span>
+                                    @endif
+                                    <div class="time">{{ $item['address'] }}</div>
+                                </div>
+                            </a>
+                        @endforeach
+                    @else
+                        @foreach ($created as $data)    
+                            @php
+                                $announcement = explode("|", $data['announcement']);
+                            @endphp
+                            <a href="#" class="dropdown-item">
+                                <div class="dropdown-item-icon text-dark">
+                                    <img class="rounded" src="{{ asset('admin/img/avatar/avatar-4.png') }}" alt="Admin" width="80%">
                                 </div>
                                 <div class="dropdown-item-desc">
                                     <div class="row">
                                         <div class="col-md-6"><h6>{{ $announcement[0] }}</h6></div>
-                                        <div class="col-md-6"><b class="float-right">{{ \Carbon\Carbon::parse($announcement[3])->format('d-m-Y') }}</b></div>
+                                        <div class="col-md-6"><b class="float-right">{{ \Carbon\Carbon::parse($data['updated_at'])->format('d-m-Y') }}</b></div>
                                     </div>
-                                    
-                                    @if ($announcement[4] == "waiting" || $announcement[4] == "revision" || $announcement[4] == "revised")
-                                        <span class="badge badge-pill badge-warning" style="padding-top: 1px; padding-bottom: 1px">Proses Pengajuan</span>
-                                    @elseif ($announcement[4] == "rejected")
-                                        <span class="badge badge-pill badge-danger" style="padding-top: 1px; padding-bottom: 1px">Merk Ditolak</span>
-                                    @elseif ($announcement[4] == "accepted")
-                                        <span class="badge badge-pill badge-success" style="padding-top: 1px; padding-bottom: 1px">Merk Diterima</span>
-                                    @endif
-                                    <div class="time">{{ $announcement[2] }}</div>
+                                    <div class="time">{{ $announcement[1] }}</div>
                                 </div>
                             </a>
-                        @endif
-                    @endforeach
+                        @endforeach
+
+                        @foreach ($generated as $item)
+                            <a href="#" class="dropdown-item">
+                                <div class="dropdown-item-icon text-dark">
+                                    <img class="rounded" src="{{ asset($item['logo']) }}" alt="Logo Brand" width="80%">
+                                </div>
+                                <div class="dropdown-item-desc">
+                                    <div class="row">
+                                        <div class="col-md-6"><h6>{{ $item['name'] }}</h6></div>
+                                        <div class="col-md-6"><b class="float-right">{{ \Carbon\Carbon::parse($item['created_at'])->format('d-m-Y') }}</b></div>
+                                    </div>
+                                    
+                                    @if ($item->brand_status[0]->status == "waiting" || $item->brand_status[0]->status == "revision" || $item->brand_status[0]->status == "revised")
+                                        <span class="badge badge-pill badge-warning" style="padding-top: 1px; padding-bottom: 1px">Proses Pengajuan</span>
+                                    @elseif ($item->brand_status[0]->status == "rejected")
+                                        <span class="badge badge-pill badge-danger" style="padding-top: 1px; padding-bottom: 1px">Merk Ditolak</span>
+                                    @elseif ($item->brand_status[0]->status == "accepted")
+                                        <span class="badge badge-pill badge-success" style="padding-top: 1px; padding-bottom: 1px">Merk Diterima</span>
+                                    @endif
+                                    <div class="time">{{ $item['address'] }}</div>
+                                </div>
+                            </a>
+                        @endforeach
+                    @endif
                 </div>
                 <div class="dropdown-footer text-center">
                     That's All <i class="fas fa-chevron-up"></i>

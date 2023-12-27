@@ -174,6 +174,10 @@
                                     <input type="text" disabled value="{{ $data->owner }}" class="form-control">
                                 </div>
                                 <div class="card-body">
+                                    <h5>Kelas Merk</h5>
+                                    <input type="text" disabled value="{{ $data->kelas }}" class="form-control">
+                                </div>
+                                <div class="card-body">
                                     <h5>Alamat Usaha</h5>
                                     <textarea name="address" id="adress" cols="30" rows="6" disabled class="form-control" style="height: 100%">{{ $data->address }}</textarea>
                                 </div>

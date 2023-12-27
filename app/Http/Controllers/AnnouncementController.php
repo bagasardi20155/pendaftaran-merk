@@ -18,9 +18,10 @@ class AnnouncementController extends Controller
     public function get_announcement()
     {
         $created = Announcement::where('type', 'created')->orWhere('type', 'expired_created')->orderBy('updated_at', 'desc')->get();
-        $generated = Announcement::where('type', 'generated')->orderBy('updated_at', 'desc')->limit(7)->get();
+        // $generated = Announcement::where('type', 'generated')->orderBy('updated_at', 'desc')->limit(7)->get();
 
-        $data = $created->merge($generated);
+        // $data = $created->merge($generated);
+        $data = $created;
         
         return $data;
     }
