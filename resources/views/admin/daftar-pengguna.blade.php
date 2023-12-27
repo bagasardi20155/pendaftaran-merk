@@ -19,6 +19,7 @@
             </div>
         </div>
 
+        <a href="#" class="btn btn-info mb-3" id="btn-modal-admin" data-toggle="modal" data-target="#modal-admin"><i class="fas fa-plus"></i> Buat akun admin baru</a>
         <div class="section-body">
             <div class="row">
             <div class="col-12">
@@ -78,6 +79,63 @@
             </div>
         </div>
     </section>
+</div>
+
+{{-- modal make new admin --}}
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-admin">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ route('admin.new-admin.store') }}">
+                    @csrf
+                    @method('post')
+                    <h4 class="text-lg font-medium text-dark">
+                        Buat Akun Admin Baru
+                    </h4>
+                    <div>
+                        <div class="form-group">
+                            <label for="name" class="control-label">Name <span class="text-danger">*</span></label>
+                            <input id="name" type="text" class="form-control" name="name" tabindex="2" required autocomplete="name">
+                        </div>
+                        @error('name')
+                            <div class="text-danger mb-4" >
+                                {{ $message }}
+                            </div>
+                        @enderror
+
+                        <div class="form-group">
+                            <label for="email" class="control-label">Email <span class="text-danger">*</span></label>
+                            <input id="email" type="email" class="form-control" name="email" tabindex="2" required autocomplete="email">
+                        </div>
+                        @error('email')
+                            <div class="text-danger mb-4" >
+                                {{ $message }}
+                            </div>
+                        @enderror
+
+                        <div class="form-group">
+                            <label for="password" class="control-label">Password <span class="text-danger">*</span></label>
+                            <input id="password" type="password" class="form-control" name="password" tabindex="2" required autocomplete="password">
+                        </div>
+                        @error('password')
+                            <div class="text-danger mb-4" >
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="row modal-footer br mt-3">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="submit-confirm">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

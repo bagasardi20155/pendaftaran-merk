@@ -7,9 +7,11 @@ use App\Models\Applicant\Brand;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\Rules;
 
 class DashboardController extends Controller
 {
@@ -78,5 +80,30 @@ class DashboardController extends Controller
     
             return Redirect::route('admin.daftar-pengguna.index');
         }
+    }
+
+    /**
+     * Create new user as admin account.
+     */
+    public function store(Request $request): RedirectResponse
+    {   
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->assignRole('admin');
+
+        $msg = "New Admin Created!";
+        Alert::success($msg);
+
+        return Redirect::route('admin.daftar-pengguna.index');
     }
 }

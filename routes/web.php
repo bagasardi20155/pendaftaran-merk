@@ -47,10 +47,12 @@ Route::name('admin.')
         Route::put('announcement/{announcement}', [AnnouncementController::class, 'update'])->name('announcement.update');
         Route::delete('announcement/{announcement}', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
 
+        // {{ daftar pengguna routes }}
         Route::get('daftar-pengguna', [DashboardController::class, 'daftar_pengguna'])->name('daftar-pengguna.index');
         Route::get('daftar-pengguna/{user}', [DashboardController::class, 'detail_pengguna'])->name('daftar-pengguna.detail');
         Route::delete('daftar-pengguna/{user}', [DashboardController::class, 'destroy'])->name('daftar-pengguna.destroy');
         Route::post('daftar-pengguna', [DashboardController::class, 'grant_admin_role'])->name('daftar-pengguna.grant');
+        Route::post('store-admin', [DashboardController::class, 'store'])->name('new-admin.store');
 
         Route::get('daftar-permohonan', [PermohonanController::class, 'index'])->name('daftar-permohonan.index');
         Route::get('detail/{brand}', [PermohonanController::class, 'detail'])->name('daftar-permohonan.detail');
